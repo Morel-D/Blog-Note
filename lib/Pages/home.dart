@@ -12,7 +12,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/addNote');
+        },
         backgroundColor: Color.fromARGB(255, 25, 25, 25),
         child: Icon(Icons.add),
       ),
