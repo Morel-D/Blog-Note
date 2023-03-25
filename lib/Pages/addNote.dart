@@ -1,3 +1,5 @@
+import 'package:blog_notes/Models/blogs.dart';
+import 'package:blog_notes/Services/noteText.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_notes/Shared/constant.dart';
 
@@ -9,6 +11,12 @@ class AddNote extends StatefulWidget {
 }
 
 class _AddNoteState extends State<AddNote> {
+  final NoteText _notes = NoteText();
+  final _formKey = GlobalKey<FormState>();
+
+  String text = "";
+  String title = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,10 +46,12 @@ class _AddNoteState extends State<AddNote> {
         body: Padding(
           padding: const EdgeInsets.all(15),
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 TextFormField(
                   decoration: formTextDecoration.copyWith(hintText: "Tilte"),
+                  onChanged: (value) => title = value,
                 ),
                 TextFormField(
                   controller: TextEditingController(),
@@ -49,12 +59,17 @@ class _AddNoteState extends State<AddNote> {
                   maxLines: 17,
                   decoration:
                       formTextDecoration.copyWith(hintText: "Take Notes"),
+                  onChanged: (value) => text = value,
                 ),
                 SizedBox(
                   height: 50,
                   width: 150,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await _notes.createBlog(title, text);
+                      }
+                    },
                     child: Text(
                       "Add Note",
                       style: TextStyle(color: Colors.white),
