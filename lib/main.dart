@@ -2,6 +2,7 @@ import 'package:blog_notes/Pages/addNote.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_notes/Pages/home.dart';
+import 'package:blog_notes/Pages/editNote.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/home': (context) => Home(),
-        '/addNote': (context) => AddNote()
+        '/addNote': (context) => AddNote(),
+        '/editNote': (context) => EditNote()
       },
       debugShowCheckedModeBanner: false,
       home: Home(),

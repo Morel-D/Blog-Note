@@ -1,3 +1,4 @@
+import 'package:blog_notes/Services/noteText.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -12,6 +13,8 @@ class _HomeState extends State<Home> {
 // Collection in firestore
   final CollectionReference _notes =
       FirebaseFirestore.instance.collection('notes');
+
+  final NoteText _noteText = NoteText();
 
   @override
   Widget build(BuildContext context) {
@@ -104,13 +107,19 @@ class _HomeState extends State<Home> {
                                         ),
                                         SizedBox(width: 160),
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () async {
+                                              await _noteText.deleteBlog(
+                                                  documentSnapshot.id);
+                                            },
                                             icon: Icon(
                                               Icons.delete,
                                               color: Colors.redAccent,
                                             )),
                                         IconButton(
-                                            onPressed: () {},
+                                            onPressed: () async {
+                                              // await _noteText.getBlog();
+                                              ;
+                                            },
                                             icon: Icon(
                                               Icons.edit,
                                               color: Colors.yellowAccent,

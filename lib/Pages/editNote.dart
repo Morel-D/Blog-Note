@@ -1,17 +1,15 @@
-import 'package:blog_notes/Models/blogs.dart';
-import 'package:blog_notes/Services/noteText.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_notes/Shared/constant.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:blog_notes/Services/noteText.dart';
 
-class AddNote extends StatefulWidget {
-  const AddNote({Key? key}) : super(key: key);
+class EditNote extends StatefulWidget {
+  const EditNote({Key? key}) : super(key: key);
 
   @override
-  _AddNoteState createState() => _AddNoteState();
+  _EditNoteState createState() => _EditNoteState();
 }
 
-class _AddNoteState extends State<AddNote> {
+class _EditNoteState extends State<EditNote> {
   final NoteText _notes = NoteText();
   final _formKey = GlobalKey<FormState>();
 
@@ -26,7 +24,7 @@ class _AddNoteState extends State<AddNote> {
             color: Color.fromARGB(255, 87, 87, 87),
           ),
           title: Text(
-            'Add Note',
+            'Edit Note',
             style:
                 TextStyle(color: Color.fromARGB(255, 87, 87, 87), fontSize: 24),
           ),
@@ -67,16 +65,10 @@ class _AddNoteState extends State<AddNote> {
                   width: 150,
                   child: TextButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        var id = FirebaseFirestore.instance
-                            .collection("notes")
-                            .doc();
-                        await _notes.createBlog(id, title, text);
-                      }
                       Navigator.of(context).pop();
                     },
                     child: Text(
-                      "Add Note",
+                      "Update Note",
                       style: TextStyle(color: Colors.white),
                     ),
                     style: TextButton.styleFrom(backgroundColor: Colors.black),
