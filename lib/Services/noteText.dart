@@ -24,31 +24,13 @@ class NoteText {
     }
   }
 
-// Get Data
-
-  // Future<QuerySnapshot?> getBlog() async {
-  //   try {
-  //     var snapshot = FirebaseFirestore.instance
-  //         .collection("notes")
-  //         .doc("sC9WB2AVlCjozcVcMLkO")
-  //         .get();
-  //     print(snapshot);
-  //   } catch (e) {
-  //     print("Something is wrong : ${e.toString()}");
-  //   }
-  // }
-
-  // delete data
+// Delete data
 
   Future<void> deleteBlog(String noteId) async {
     await _notes.doc(noteId).delete();
   }
 
-  // static Blogs fromJson(Map<String, dynamic> json) =>
-  //     Blogs(tile: json['title'], text: json['text']);
+// Update data
 
-  // Read Data
-  // Stream<List<Blogs>> readBlog()  {
-  //    _notes.snapshots().map((event) => event.docs.map((e) => Blogs.fromJson(e.data()))).toList());
-  // }
+// Read Data
 }
