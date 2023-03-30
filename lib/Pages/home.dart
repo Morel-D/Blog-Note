@@ -2,6 +2,9 @@ import 'package:blog_notes/Services/noteText.dart';
 import 'package:blog_notes/Shared/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:blog_notes/Shared/loading.dart';
+
+import 'package:blog_notes/Pages/TextNotes/editNote.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -123,90 +126,13 @@ class _HomeState extends State<Home> {
                                             )),
                                         IconButton(
                                             onPressed: () {
-                                              if (documentSnapshot != null) {
-                                                _textControllers.text =
-                                                    documentSnapshot['text'];
-
-                                                _titleControllers.text =
-                                                    documentSnapshot['title'];
-                                              }
-
-                                              showModalBottomSheet(
-                                                  context: context,
-                                                  builder: (BuildContext ctx) {
-                                                    padding:
-                                                    EdgeInsets.only(
-                                                        top: 20,
-                                                        left: 20,
-                                                        right: 20,
-                                                        // prevent the soft keyboard from covering text fields
-                                                        bottom:
-                                                            MediaQuery.of(ctx)
-                                                                    .viewInsets
-                                                                    .bottom +
-                                                                20);
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsets.all(8),
-                                                      child: Form(
-                                                          child: Column(
-                                                        children: [
-                                                          TextFormField(
-                                                              controller:
-                                                                  _titleControllers,
-                                                              decoration:
-                                                                  formTextDecoration),
-                                                          TextFormField(
-                                                              controller:
-                                                                  _textControllers,
-                                                              decoration:
-                                                                  formTextDecoration),
-                                                          SizedBox(
-                                                            height: 50,
-                                                            width: 150,
-                                                            child: TextButton(
-                                                              onPressed:
-                                                                  () async {
-                                                                newText =
-                                                                    _textControllers
-                                                                        .text;
-
-                                                                newTitle =
-                                                                    _titleControllers
-                                                                        .text;
-
-                                                                await _notes
-                                                                    .doc(
-                                                                        documentSnapshot
-                                                                            .id)
-                                                                    .update({
-                                                                  "title":
-                                                                      newTitle,
-                                                                  "text":
-                                                                      newText
-                                                                });
-
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                              child: Text(
-                                                                "Update Note",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                              style: TextButton
-                                                                  .styleFrom(
-                                                                      backgroundColor:
-                                                                          Colors
-                                                                              .black),
-                                                            ),
-                                                          )
-                                                        ],
-                                                      )),
-                                                    );
-                                                  });
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          EditNote(
+                                                              documentSnapshot:
+                                                                  documentSnapshot)));
                                             },
                                             icon: Icon(
                                               Icons.edit,
@@ -224,7 +150,7 @@ class _HomeState extends State<Home> {
                 );
               } else {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Loading(),
                 );
               }
             }),
