@@ -73,9 +73,9 @@ class EditNote extends StatelessWidget {
                     newTitle = _titleControllers.text;
                     newText = _textControllers.text;
 
-                    await _notes
-                        .doc(documentSnapshot.id)
-                        .update({"title": newTitle, "text": newText});
+                    var noteFeild = {"title": newTitle, "text": newText};
+
+                    await _noteText.updateBlog(documentSnapshot.id, noteFeild);
 
                     Navigator.of(context).pop(true);
                   },

@@ -1,10 +1,8 @@
-import 'package:blog_notes/Services/noteText.dart';
 import 'package:blog_notes/Shared/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:blog_notes/Shared/loading.dart';
-
-import 'package:blog_notes/Pages/TextNotes/editNote.dart';
+import 'package:blog_notes/Pages/homeList.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,14 +15,6 @@ class _HomeState extends State<Home> {
 // Collection in firestore
   final CollectionReference _notes =
       FirebaseFirestore.instance.collection('notes');
-
-  final NoteText _noteText = NoteText();
-  final TextEditingController _titleControllers = TextEditingController();
-  final TextEditingController _textControllers = TextEditingController();
-
-  String newTitle = "";
-  String newText = "";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,65 +74,13 @@ class _HomeState extends State<Home> {
                               final DocumentSnapshot documentSnapshot =
                                   streamSnapshot.data!.docs[index];
 
-                              return Card(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: [
-                                    ListTile(
-                                      leading: CircleAvatar(
-                                        radius: 30.0,
-                                        backgroundColor:
-                                            Color.fromARGB(255, 209, 209, 209),
-                                        backgroundImage:
-                                            AssetImage('assets/pen.png'),
-                                      ),
-                                      title: Text(documentSnapshot['title']),
-                                      subtitle: Text(documentSnapshot['text']),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              25, 0, 0, 0),
-                                          child: Text(
-                                            '17:48, 24 march 2023',
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 215, 215, 215)),
-                                          ),
-                                        ),
-                                        SizedBox(width: 160),
-                                        IconButton(
-                                            onPressed: () async {
-                                              await _noteText.deleteBlog(
-                                                  documentSnapshot.id);
-                                            },
-                                            icon: Icon(
-                                              Icons.delete,
-                                              color: Colors.redAccent,
-                                            )),
-                                        IconButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          EditNote(
-                                                              documentSnapshot:
-                                                                  documentSnapshot)));
-                                            },
-                                            icon: Icon(
-                                              Icons.edit,
-                                              color: Colors.yellowAccent,
-                                            ))
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ));
+                              if (streamSnapshot.data!.docs.length == 0) {
+                                return Center(child: Text('No Note found ..'));
+                              } else {
+// Home list
+                                return HomeList(
+                                    documentSnapshot: documentSnapshot);
+                              }
                             })
                       ],
                     ),

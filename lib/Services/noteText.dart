@@ -32,5 +32,11 @@ class NoteText {
 
 // Update data
 
-// Read Data
+  Future<void> updateBlog(String noteId, Map<String, dynamic> notes) async {
+    try {
+      await _notes.doc(noteId).update(notes);
+    } catch (e) {
+      print("Something unexpected happend ${e.toString()}");
+    }
+  }
 }
