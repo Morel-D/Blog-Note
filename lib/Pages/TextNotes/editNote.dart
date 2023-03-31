@@ -18,8 +18,9 @@ class EditNote extends StatelessWidget {
   final TextEditingController _textControllers = TextEditingController();
 
   String newTitle = "";
-
   String newText = "";
+
+  DateTime newDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +74,11 @@ class EditNote extends StatelessWidget {
                     newTitle = _titleControllers.text;
                     newText = _textControllers.text;
 
-                    var noteFeild = {"title": newTitle, "text": newText};
+                    var noteFeild = {
+                      "title": newTitle,
+                      "text": newText,
+                      "date": newDate
+                    };
 
                     await _noteText.updateBlog(documentSnapshot.id, noteFeild);
 
