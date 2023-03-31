@@ -11,12 +11,14 @@ class NoteText {
 
 // Create data
 
-  Future<Blogs?> createBlog(var id, String title, String text) async {
+  Future<Blogs?> createBlog(
+      var id, String title, String text, DateTime date) async {
     try {
       Map<String, dynamic> data = <String, dynamic>{
         "id": id,
         "title": title,
-        "text": text
+        "text": text,
+        "date": date
       };
       _notes.add(data);
     } catch (e) {

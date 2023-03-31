@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:blog_notes/Services/noteText.dart';
 import 'package:blog_notes/Pages/TextNotes/editNote.dart';
+import 'package:intl/intl.dart';
 
 class HomeList extends StatelessWidget {
   final DocumentSnapshot documentSnapshot;
@@ -15,6 +16,9 @@ class HomeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Timestamp timestamp = documentSnapshot['date'];
+    DateTime dateTime = timestamp.toDate();
+
     return Card(
         child: Padding(
       padding: const EdgeInsets.all(16.0),
@@ -35,7 +39,7 @@ class HomeList extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
                 child: Text(
-                  '17:48, 24 march 2023',
+                  DateFormat.yMMMd().add_jm().format(dateTime).toString(),
                   style: TextStyle(color: Color.fromARGB(255, 215, 215, 215)),
                 ),
               ),

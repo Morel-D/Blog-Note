@@ -18,6 +18,8 @@ class _AddNoteState extends State<AddNote> {
   String text = "";
   String title = "";
 
+  DateTime date = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +73,7 @@ class _AddNoteState extends State<AddNote> {
                         var id = FirebaseFirestore.instance
                             .collection("notes")
                             .doc();
-                        await _notes.createBlog(id, title, text);
+                        await _notes.createBlog(id, title, text, date);
                       }
                       Navigator.of(context).pop();
                     },
