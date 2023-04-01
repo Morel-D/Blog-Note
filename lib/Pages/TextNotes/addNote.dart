@@ -11,12 +11,18 @@ class AddNote extends StatefulWidget {
   _AddNoteState createState() => _AddNoteState();
 }
 
+void btnClick() {}
+
 class _AddNoteState extends State<AddNote> {
   final NoteText _notes = NoteText();
   final _formKey = GlobalKey<FormState>();
 
   String text = "";
   String title = "";
+
+  bool _btn = false;
+
+  // Color.fromARGB(84, 158, 158, 158);
 
   DateTime date = DateTime.now();
 
@@ -34,13 +40,11 @@ class _AddNoteState extends State<AddNote> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.check,
-                    color: Color.fromARGB(255, 87, 87, 87),
-                  )),
+              padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
+              child: Icon(
+                Icons.book,
+                color: Color.fromARGB(255, 87, 87, 87),
+              ),
             )
           ],
           backgroundColor: Color.fromARGB(255, 249, 249, 249),
@@ -53,35 +57,47 @@ class _AddNoteState extends State<AddNote> {
             child: Column(
               children: [
                 TextFormField(
-                  decoration: formTextDecoration.copyWith(hintText: "Tilte"),
-                  onChanged: (value) => title = value,
-                ),
+                    decoration: formTextDecoration.copyWith(hintText: "Tilte"),
+                    onChanged: (value) {
+                      title = value;
+                      setState(() {
+                        _btn = value.length == 0 ? false : true;
+                      });
+                    }),
                 TextFormField(
-                  controller: TextEditingController(),
                   keyboardType: TextInputType.multiline,
                   maxLines: 17,
                   decoration:
                       formTextDecoration.copyWith(hintText: "Take Notes"),
-                  onChanged: (value) => text = value,
+                  onChanged: (value) {
+                    text = value;
+                    setState(() {
+                      _btn = value.length == 0 ? false : true;
+                    });
+                  },
                 ),
-                SizedBox(
-                  height: 50,
-                  width: 150,
-                  child: TextButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        var id = FirebaseFirestore.instance
-                            .collection("notes")
-                            .doc();
-                        await _notes.createBlog(id, title, text, date);
-                      }
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      "Add Note",
-                      style: TextStyle(color: Colors.white),
+                Visibility(
+                  visible: _btn,
+                  child: SizedBox(
+                    height: 50,
+                    width: 150,
+                    child: TextButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          var id = FirebaseFirestore.instance
+                              .collection("notes")
+                              .doc();
+                          await _notes.createBlog(id, title, text, date);
+                        }
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        "Add Note",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style:
+                          TextButton.styleFrom(backgroundColor: Colors.black),
                     ),
-                    style: TextButton.styleFrom(backgroundColor: Colors.black),
                   ),
                 )
               ],

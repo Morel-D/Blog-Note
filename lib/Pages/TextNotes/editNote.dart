@@ -20,13 +20,14 @@ class EditNote extends StatelessWidget {
   String newTitle = "";
   String newText = "";
 
+  bool _btn = false;
+
   DateTime newDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     if (documentSnapshot != null) {
       _textControllers.text = documentSnapshot['text'];
-
       _titleControllers.text = documentSnapshot['title'];
     }
 
@@ -42,14 +43,11 @@ class EditNote extends StatelessWidget {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
-              child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.check,
-                    color: Color.fromARGB(255, 87, 87, 87),
-                  )),
-            )
+                padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
+                child: Icon(
+                  Icons.edit,
+                  color: Color.fromARGB(255, 87, 87, 87),
+                ))
           ],
           backgroundColor: Color.fromARGB(255, 249, 249, 249),
           elevation: 0,
@@ -59,12 +57,13 @@ class EditNote extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                controller: _titleControllers,
                 decoration: formTextDecoration.copyWith(hintText: "Tilte"),
+                controller: _titleControllers,
               ),
               TextFormField(
-                controller: _textControllers,
+                maxLines: 17,
                 decoration: formTextDecoration.copyWith(hintText: "Take Notes"),
+                controller: _textControllers,
               ),
               SizedBox(
                 height: 50,

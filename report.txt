@@ -1,0 +1,6 @@
+Some Customizations
+
+- Controller Lines Editing
+- Cards Line Editing
+- Ordered by date
+- btn visiility change on text type event

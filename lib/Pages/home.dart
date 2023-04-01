@@ -13,8 +13,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 // Collection in firestore
-  final CollectionReference _notes =
-      FirebaseFirestore.instance.collection('notes');
+  var _notes = FirebaseFirestore.instance
+      .collection('notes')
+      .orderBy('date', descending: true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +88,8 @@ class _HomeState extends State<Home> {
                   ),
                 );
               } else {
-                return Center(
+                return SizedBox(
+                  height: 600,
                   child: Loading(),
                 );
               }

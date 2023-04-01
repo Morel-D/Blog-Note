@@ -31,7 +31,8 @@ class HomeList extends StatelessWidget {
               backgroundImage: AssetImage('assets/pen.png'),
             ),
             title: Text(documentSnapshot['title']),
-            subtitle: Text(documentSnapshot['text']),
+            subtitle: Text(documentSnapshot['text'],
+                overflow: TextOverflow.ellipsis, maxLines: 2),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
