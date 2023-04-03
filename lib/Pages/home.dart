@@ -16,6 +16,9 @@ class _HomeState extends State<Home> {
   var _notes = FirebaseFirestore.instance
       .collection('notes')
       .orderBy('date', descending: true);
+
+  String searchName = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,20 +54,24 @@ class _HomeState extends State<Home> {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: TextFormField(
-                            decoration: InputDecoration(
-                                fillColor: Color.fromARGB(255, 209, 209, 209),
-                                filled: true,
-                                // icon: Icon(Icons.search),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide:
-                                        BorderSide(color: Colors.transparent)),
-                                hintText: "Search for a note"),
-                          ),
+                              decoration: InputDecoration(
+                                  fillColor: Color.fromARGB(255, 209, 209, 209),
+                                  filled: true,
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  hintText: "Search for a note",
+                                  suffixIcon: Icon(Icons.search)),
+                              onChanged: (value) {
+                                setState(() {
+                                  searchName = value;
+                                });
+                              }),
                         ),
                         SizedBox(height: 25),
                         ListView.builder(
@@ -75,12 +82,30 @@ class _HomeState extends State<Home> {
                               final DocumentSnapshot documentSnapshot =
                                   streamSnapshot.data!.docs[index];
 
-                              if (streamSnapshot.data!.docs.length == 0) {
-                                return Center(child: Text('No Note found ..'));
-                              } else {
-// Home list
+                              if (searchName.isEmpty) {
                                 return HomeList(
                                     documentSnapshot: documentSnapshot);
+                              }
+                              if (documentSnapshot['title']
+                                  .toString()
+                                  .toLowerCase()
+                                  .startsWith(searchName.toLowerCase())) {
+                                return HomeList(
+                                    documentSnapshot: documentSnapshot);
+                              } else {
+                                return Center(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 50),
+                                      Container(
+                                        child: Image(
+                                            image:
+                                                AssetImage('assets/empty.png')),
+                                      ),
+                                      Text('No note found')
+                                    ],
+                                  ),
+                                );
                               }
                             })
                       ],
