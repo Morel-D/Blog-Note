@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:blog_notes/Shared/loading.dart';
 import 'package:blog_notes/Pages/homeList.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -22,12 +23,30 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/addNote');
-        },
+      floatingActionButton: SpeedDial(
+        direction: SpeedDialDirection.left,
+        animatedIcon: AnimatedIcons.add_event,
+        animatedIconTheme: IconThemeData(size: 28.0),
         backgroundColor: Color.fromARGB(255, 25, 25, 25),
-        child: Icon(Icons.add),
+        visible: true,
+        curve: Curves.elasticInOut,
+        children: [
+          SpeedDialChild(
+              child: Icon(
+                Icons.edit,
+                color: Colors.white,
+              ),
+              onTap: () {
+                Navigator.pushNamed(context, '/addNote');
+              },
+              backgroundColor: Colors.blueAccent),
+          SpeedDialChild(
+              child: Icon(
+                Icons.list,
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.greenAccent),
+        ],
       ),
       appBar: AppBar(
         title: Text(
