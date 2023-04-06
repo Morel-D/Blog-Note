@@ -41,11 +41,15 @@ class _HomeState extends State<Home> {
               },
               backgroundColor: Colors.blueAccent),
           SpeedDialChild(
-              child: Icon(
-                Icons.list,
-                color: Colors.white,
-              ),
-              backgroundColor: Colors.greenAccent),
+            child: Icon(
+              Icons.list,
+              color: Colors.white,
+            ),
+            backgroundColor: Colors.greenAccent,
+            onTap: () {
+              Navigator.pushNamed(context, '/addTask');
+            },
+          ),
         ],
       ),
       appBar: AppBar(

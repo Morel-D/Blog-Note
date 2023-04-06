@@ -10,7 +10,7 @@ class NoteTask {
 
 // Create The task
 
-  Future<Task?> createTask(String title, String task, String date) async {
+  Future<Task?> createTask(String title, String task, var date) async {
     try {
       Map<String, dynamic> data = <String, dynamic>{
         "title": title,
