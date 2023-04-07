@@ -4,10 +4,10 @@ import 'package:blog_notes/Services/noteText.dart';
 import 'package:blog_notes/Pages/TextNotes/editNote.dart';
 import 'package:intl/intl.dart';
 
-class HomeList extends StatelessWidget {
+class NoteList extends StatelessWidget {
   final DocumentSnapshot documentSnapshot;
 
-  HomeList({required this.documentSnapshot});
+  NoteList({required this.documentSnapshot});
 
   final CollectionReference _notes =
       FirebaseFirestore.instance.collection('notes');
