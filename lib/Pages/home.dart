@@ -103,7 +103,9 @@ class _HomeState extends State<Home> {
                           height: 130,
                           width: 150,
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/note');
+                            },
                             child: Column(
                               children: [
                                 Padding(
@@ -139,7 +141,9 @@ class _HomeState extends State<Home> {
                           height: 130,
                           width: 150,
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/task');
+                            },
                             child: Column(
                               children: [
                                 Padding(

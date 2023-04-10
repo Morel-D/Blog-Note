@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:blog_notes/Pages/home.dart';
 import 'package:blog_notes/Pages/TaskNotes/addTask.dart';
 
+import 'package:blog_notes/Pages/TextNotes/note.dart';
+import 'package:blog_notes/Pages/TaskNotes/task.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,7 +24,11 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => Home(),
         '/addNote': (context) => AddNote(),
-        '/addTask': (context) => AddTask()
+        '/addTask': (context) => AddTask(),
+
+        // home pages
+        '/note': (context) => Note(),
+        '/task': (context) => Task()
       },
       debugShowCheckedModeBanner: false,
       home: Home(),
