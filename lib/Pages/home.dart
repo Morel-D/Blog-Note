@@ -40,12 +40,32 @@ class _HomeState extends State<Home> {
                 Navigator.pushNamed(context, '/addTask');
               },
             ),
+            SpeedDialChild(
+              child: Icon(
+                Icons.mic_rounded,
+                color: Colors.white,
+              ),
+              backgroundColor: Color.fromARGB(255, 240, 105, 202),
+              onTap: () {
+                // Navigator.pushNamed(context, '/addTask');
+              },
+            ),
+            SpeedDialChild(
+              child: Icon(
+                Icons.image,
+                color: Colors.white,
+              ),
+              backgroundColor: Color.fromARGB(255, 226, 211, 40),
+              onTap: () {
+                // Navigator.pushNamed(context, '/addTask');
+              },
+            ),
           ],
         ),
         body: Stack(
           children: [
             Container(
-                height: 400,
+                height: 700,
                 width: 500,
                 decoration: BoxDecoration(
                   color: Color.fromARGB(255, 25, 25, 25),
@@ -138,7 +158,83 @@ class _HomeState extends State<Home> {
                                       )),
                                 ),
                                 Text(
-                                  "Text Notes",
+                                  "Task List",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                            style: TextButton.styleFrom(
+                                backgroundColor: Colors.white),
+                          ))
+                    ],
+                  ),
+                  SizedBox(height: 23),
+                  Row(
+                    children: [
+                      SizedBox(
+                          height: 130,
+                          width: 150,
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Color.fromARGB(
+                                              255, 226, 211, 40)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Icon(
+                                          Icons.image,
+                                          color: Colors.white,
+                                        ),
+                                      )),
+                                ),
+                                Text(
+                                  "Gallery",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
+                            style: TextButton.styleFrom(
+                                backgroundColor: Colors.white),
+                          )),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      SizedBox(
+                          height: 130,
+                          width: 150,
+                          child: TextButton(
+                            onPressed: () {},
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: Color.fromARGB(
+                                              255, 240, 105, 202)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Icon(
+                                          Icons.mic,
+                                          color: Colors.white,
+                                        ),
+                                      )),
+                                ),
+                                Text(
+                                  "Voice Note",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
