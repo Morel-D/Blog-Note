@@ -84,7 +84,72 @@ class _AddTaskState extends State<AddTask> {
                           TextButton.styleFrom(backgroundColor: Colors.black),
                     ),
                   ),
-                )
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Text("Task List",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Color.fromARGB(255, 87, 87, 87))),
+                  ],
+                ),
+                Divider(height: 20),
+                Container(
+                  height: 350,
+                  // width: 300,
+                  child: Column(
+                    children: [
+                      Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.check,
+                                    color: Color.fromARGB(255, 90, 90, 90),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text("Join the tokyo mangi gang"),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.delete, color: Colors.red),
+                                  SizedBox(width: 10),
+                                  Icon(
+                                    Icons.edit,
+                                    color: Colors.yellow,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(height: 20),
+                Visibility(
+                  // visible: _btn,
+                  child: SizedBox(
+                    height: 50,
+                    width: 150,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Upload List",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style:
+                          TextButton.styleFrom(backgroundColor: Colors.black),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
