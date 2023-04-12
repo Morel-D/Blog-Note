@@ -12,12 +12,19 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  String title = "";
-  String task = "";
+  // final _taskController = TextEditingController();
+  // String task = "";
+
   DateTime date = DateTime.now();
 
   final _formKey = GlobalKey<FormState>();
   NoteTask _task = NoteTask();
+
+  // List<String> task = [];
+  String text = "";
+  String title = "";
+
+  // Btn Click
 
   @override
   Widget build(BuildContext context) {
@@ -49,20 +56,23 @@ class _AddTaskState extends State<AddTask> {
             key: _formKey,
             child: Column(
               children: [
+                // Title
                 TextFormField(
                     decoration: formTextDecoration.copyWith(hintText: "Tilte"),
                     onChanged: (value) {
                       title = value;
                     }),
+                // Task
                 TextFormField(
                   keyboardType: TextInputType.multiline,
-                  maxLines: 1,
-                  decoration:
-                      formTextDecoration.copyWith(hintText: "Take Notes"),
+                  maxLines: 22,
+                  decoration: formTextDecoration.copyWith(
+                      hintText: "Take Notes (One line = one task)"),
                   onChanged: (value) {
-                    task = value;
+                    text = value;
                   },
                 ),
+                // Button
                 Visibility(
                   // visible: _btn,
                   child: SizedBox(
@@ -71,10 +81,11 @@ class _AddTaskState extends State<AddTask> {
                     child: TextButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          await _task.createTask(title, task, date);
-                        }
+                          List<String> task = text.split("\n");
+                          await _task.createTask(title, text, task, date);
 
-                        // Navigator.of(context).pop();
+                          print("Data added");
+                        }
                       },
                       child: Text(
                         "Add Task",
@@ -86,70 +97,6 @@ class _AddTaskState extends State<AddTask> {
                   ),
                 ),
                 SizedBox(height: 20),
-                Row(
-                  children: [
-                    Text("Task List",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromARGB(255, 87, 87, 87))),
-                  ],
-                ),
-                Divider(height: 20),
-                Container(
-                  height: 350,
-                  // width: 300,
-                  child: Column(
-                    children: [
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.check,
-                                    color: Color.fromARGB(255, 90, 90, 90),
-                                  ),
-                                  SizedBox(width: 5),
-                                  Text("Join the tokyo mangi gang"),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Icon(Icons.delete, color: Colors.red),
-                                  SizedBox(width: 10),
-                                  Icon(
-                                    Icons.edit,
-                                    color: Colors.yellow,
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20),
-                Visibility(
-                  // visible: _btn,
-                  child: SizedBox(
-                    height: 50,
-                    width: 150,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Upload List",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      style:
-                          TextButton.styleFrom(backgroundColor: Colors.black),
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

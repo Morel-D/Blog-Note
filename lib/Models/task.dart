@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+
 class Task {
   final String title;
-  final String list;
+  List<String> task;
   final DateTime date;
 
-  Task({required this.title, required this.list, required this.date});
+  Task({required this.title, required this.task, required this.date});
 }

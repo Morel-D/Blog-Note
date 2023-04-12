@@ -10,11 +10,12 @@ class NoteTask {
 
 // Create The task
 
-  Future<Task?> createTask(String title, String task, var date) async {
+  Future<Task?> createTask(
+      String title, String text, List<String> task, var date) async {
     try {
       Map<String, dynamic> data = <String, dynamic>{
         "title": title,
-        "task": task,
+        "task": {"text": task},
         "date": date
       };
       await _tasks.add(data);
