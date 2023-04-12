@@ -6,6 +6,8 @@ import 'package:blog_notes/Pages/TaskNotes/addTask.dart';
 
 import 'package:blog_notes/Pages/TextNotes/note.dart';
 import 'package:blog_notes/Pages/TaskNotes/task.dart';
+
+import 'package:blog_notes/Pages/TaskNotes/viewTask.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
         '/task': (context) => Task()
       },
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Task(),
     );
   }
 }
