@@ -12,9 +12,6 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  // final _taskController = TextEditingController();
-  // String task = "";
-
   DateTime date = DateTime.now();
 
   final _formKey = GlobalKey<FormState>();
@@ -23,8 +20,6 @@ class _AddTaskState extends State<AddTask> {
   // List<String> task = [];
   String text = "";
   String title = "";
-
-  // Btn Click
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +80,7 @@ class _AddTaskState extends State<AddTask> {
                           await _task.createTask(title, text, task, date);
 
                           print("Data added");
+                          Navigator.of(context).pop();
                         }
                       },
                       child: Text(
