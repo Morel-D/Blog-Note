@@ -1,9 +1,12 @@
+import 'package:blog_notes/Pages/TaskNotes/editTTask.dart';
+import 'package:blog_notes/Services/noteTask.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../Shared/loading.dart';
 
 class ViewTask extends StatefulWidget {
-  final documentSnapshot;
+  final DocumentSnapshot documentSnapshot;
 
   ViewTask({required this.documentSnapshot});
 
@@ -14,6 +17,7 @@ class ViewTask extends StatefulWidget {
 class _ViewTaskState extends State<ViewTask> {
   bool? value = false;
   var text = TextDecoration.none;
+  NoteTask _noteTask = NoteTask();
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +42,21 @@ class _ViewTaskState extends State<ViewTask> {
               child: Row(
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditTTask(
+                                    documentSnapshot:
+                                        widget.documentSnapshot)));
+                      },
                       icon: Icon(Icons.edit,
                           color: Color.fromARGB(255, 54, 54, 54))),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await _noteTask.deleteTask(widget.documentSnapshot.id);
+                        Navigator.of(context).pop();
+                      },
                       icon: Icon(Icons.delete,
                           color: Color.fromARGB(255, 54, 54, 54))),
                 ],
