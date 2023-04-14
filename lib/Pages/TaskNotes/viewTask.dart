@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../Shared/loading.dart';
+
 class ViewTask extends StatefulWidget {
-  const ViewTask({Key? key}) : super(key: key);
+  final documentSnapshot;
+
+  ViewTask({required this.documentSnapshot});
 
   @override
   State<ViewTask> createState() => _ViewTaskState();
@@ -13,15 +17,18 @@ class _ViewTaskState extends State<ViewTask> {
 
   @override
   Widget build(BuildContext context) {
+    List<dynamic> taskText = widget.documentSnapshot['task'];
+    var numberOfTask = taskText.length <= 1 ? "Task" : "Tasks";
+
     return Scaffold(
         appBar: AppBar(
           leading: BackButton(
             color: Color.fromARGB(255, 87, 87, 87),
           ),
           title: Text(
-            'TaskNote',
+            "${widget.documentSnapshot['title']}",
             style:
-                TextStyle(color: Color.fromARGB(255, 87, 87, 87), fontSize: 24),
+                TextStyle(color: Color.fromARGB(255, 87, 87, 87), fontSize: 20),
           ),
           backgroundColor: Color.fromARGB(255, 249, 249, 249),
           elevation: 0,
@@ -44,52 +51,48 @@ class _ViewTaskState extends State<ViewTask> {
           ],
         ),
         body: SingleChildScrollView(
-            child: SafeArea(
-                child: Padding(
+            child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Divider(),
-              SizedBox(height: 5),
-              Text(
-                "5 Tasks",
-                style: TextStyle(
-                    fontSize: 18, color: Color.fromARGB(255, 145, 145, 145)),
-              ),
-              SizedBox(height: 20),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(22.0),
-                  child: Row(
-                    children: [
-                      Checkbox(
-                          checkColor: Colors.white,
-                          activeColor: Colors.black,
-                          value: this.value,
-                          onChanged: (bool? newValue) {
-                            setState(() {
-                              this.value = newValue;
-                              if (this.value == true) {
-                                setState(() {
-                                  text = TextDecoration.lineThrough;
-                                });
-                              } else {
-                                text = TextDecoration.none;
-                              }
-                            });
-                          }),
-                      SizedBox(width: 15),
-                      Text(
-                        "Washing the dishes",
-                        style: TextStyle(decoration: text),
-                      ),
-                    ],
+              Text("${taskText.length} ${numberOfTask}",
+                  style: TextStyle(
+                      fontSize: 15, color: Color.fromARGB(255, 144, 144, 144))),
+              SizedBox(height: 10),
+              for (var texts in taskText)
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(22.0),
+                    child: Row(
+                      children: [
+                        Checkbox(
+                            checkColor: Colors.white,
+                            activeColor: Colors.black,
+                            value: this.value,
+                            onChanged: (bool? newValue) {
+                              setState(() {
+                                this.value = newValue;
+                                if (this.value == true) {
+                                  setState(() {
+                                    text = TextDecoration.lineThrough;
+                                  });
+                                } else {
+                                  text = TextDecoration.none;
+                                }
+                              });
+                            }),
+                        SizedBox(width: 15),
+                        Text(
+                          "${texts}",
+                          style: TextStyle(decoration: text),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              )
             ],
           ),
-        ))));
+        )));
   }
 }

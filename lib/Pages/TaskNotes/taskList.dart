@@ -1,5 +1,7 @@
 import 'dart:html';
 
+import 'package:blog_notes/Pages/TaskNotes/viewTask.dart';
+import 'package:blog_notes/Services/noteTask.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +10,8 @@ class TaskList extends StatelessWidget {
   final DocumentSnapshot documentSnapshot;
 
   TaskList({required this.documentSnapshot});
+
+  NoteTask _noteTask = NoteTask();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,13 @@ class TaskList extends StatelessWidget {
                         color: Colors.redAccent,
                       )),
                   IconButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ViewTask(
+                                    documentSnapshot: documentSnapshot)));
+                      },
                       icon: Icon(
                         Icons.remove_red_eye,
                         color: Colors.blueAccent,

@@ -43,4 +43,13 @@ class NoteTask {
       print("Somthing wrong has occur ${e.toString()}");
     }
   }
+
+  // get a single record
+  Future<void> getTask(String taskId) async {
+    try {
+      await _tasks.doc(taskId).snapshots();
+    } catch (e) {
+      print("Something is wrong : ${e.toString()}");
+    }
+  }
 }
