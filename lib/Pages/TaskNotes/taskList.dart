@@ -15,6 +15,7 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NoteTask _noteTask = NoteTask();
     Timestamp timestamp = documentSnapshot['date'];
     DateTime dateTime = timestamp.toDate();
     List<dynamic> taskData = documentSnapshot['task'];
@@ -47,7 +48,9 @@ class TaskList extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                      onPressed: () async {},
+                      onPressed: () async {
+                        _noteTask.deleteTask(documentSnapshot.id);
+                      },
                       icon: Icon(
                         Icons.delete,
                         color: Colors.redAccent,
