@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         '/task': (context) => Task()
       },
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: ViewTask(),
     );
   }
 }
