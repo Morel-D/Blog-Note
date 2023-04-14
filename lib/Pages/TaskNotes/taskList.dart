@@ -4,38 +4,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class TaskList extends StatefulWidget {
+class TaskList extends StatelessWidget {
   final DocumentSnapshot documentSnapshot;
 
   TaskList({required this.documentSnapshot});
 
   @override
-  State<TaskList> createState() => _TaskListState();
-}
-
-class _TaskListState extends State<TaskList> {
-  @override
   Widget build(BuildContext context) {
-    Timestamp timestamp = widget.documentSnapshot['date'];
+    Timestamp timestamp = documentSnapshot['date'];
     DateTime dateTime = timestamp.toDate();
-    var task = widget.documentSnapshot['title'];
+    List<dynamic> taskData = documentSnapshot['task'];
 
-    hasData() async {
-      var taskDoc = await FirebaseFirestore.instance
-          .collection('tasks')
-          .doc('fQC6Xaawu7pS5W4NXhYD')
-          .snapshots();
-
-      taskDoc.forEach((element) {
-        Map<String, dynamic> data = element['task'];
-        data.forEach((key, value) {
-          List<dynamic> data2 = value;
-          data2.forEach((element) {
-            print(element);
-          });
-        });
-      });
-    }
+    var text = taskData.length <= 1 ? "Task" : "Tasks";
 
     return Card(
         child: Padding(
@@ -43,25 +23,13 @@ class _TaskListState extends State<TaskList> {
       child: Column(
         children: [
           ListTile(
-            leading: CircleAvatar(
-              radius: 30.0,
-              backgroundColor: Color.fromARGB(255, 209, 209, 209),
-              backgroundImage: AssetImage('assets/list.jpg'),
-            ),
-            title: Text(widget.documentSnapshot['title']),
-            subtitle: FutureBuilder(
-                future:
-                    FirebaseFirestore.instance.collection("tasks").doc().get(),
-                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                  if (snapshot.hasData) {
-                    hasData();
-                    return Container();
-                  } else {
-                    print("No data");
-                    return Container();
-                  }
-                }),
-          ),
+              leading: CircleAvatar(
+                radius: 30.0,
+                backgroundColor: Color.fromARGB(255, 209, 209, 209),
+                backgroundImage: AssetImage('assets/list.jpg'),
+              ),
+              title: Text("${documentSnapshot['title']}"),
+              subtitle: Text("${taskData.length} ${text}")),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

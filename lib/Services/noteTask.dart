@@ -15,7 +15,7 @@ class NoteTask {
     try {
       Map<String, dynamic> data = <String, dynamic>{
         "title": title,
-        "task": {"text": task},
+        "task": task,
         "date": date
       };
       await _tasks.add(data);
