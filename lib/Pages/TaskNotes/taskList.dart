@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:blog_notes/Pages/TaskNotes/editTTask.dart';
 import 'package:blog_notes/Pages/TaskNotes/viewTask.dart';
 import 'package:blog_notes/Services/noteTask.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -68,7 +69,13 @@ class TaskList extends StatelessWidget {
                         color: Colors.blueAccent,
                       )),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditTTask(
+                                    documentSnapshot: documentSnapshot)));
+                      },
                       icon: Icon(
                         Icons.edit,
                         color: Colors.yellowAccent,
