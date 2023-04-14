@@ -26,54 +26,12 @@ class _NoteState extends State<Note> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: SpeedDial(
-          direction: SpeedDialDirection.left,
-          animatedIcon: AnimatedIcons.add_event,
-          animatedIconTheme: IconThemeData(size: 28.0),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/addNote');
+          },
           backgroundColor: Color.fromARGB(255, 25, 25, 25),
-          visible: true,
-          curve: Curves.elasticInOut,
-          children: [
-            SpeedDialChild(
-                child: Icon(
-                  Icons.edit,
-                  color: Colors.white,
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, '/addNote');
-                },
-                backgroundColor: Colors.blueAccent),
-            SpeedDialChild(
-              child: Icon(
-                Icons.list,
-                color: Colors.white,
-              ),
-              backgroundColor: Colors.greenAccent,
-              onTap: () {
-                Navigator.pushNamed(context, '/addTask');
-              },
-            ),
-            SpeedDialChild(
-              child: Icon(
-                Icons.mic_rounded,
-                color: Colors.white,
-              ),
-              backgroundColor: Color.fromARGB(255, 240, 105, 202),
-              onTap: () {
-                // Navigator.pushNamed(context, '/addTask');
-              },
-            ),
-            SpeedDialChild(
-              child: Icon(
-                Icons.image,
-                color: Colors.white,
-              ),
-              backgroundColor: Color.fromARGB(255, 226, 211, 40),
-              onTap: () {
-                // Navigator.pushNamed(context, '/addTask');
-              },
-            ),
-          ],
+          child: Icon(Icons.add),
         ),
         appBar: AppBar(
           leading: BackButton(
