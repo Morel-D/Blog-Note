@@ -1,5 +1,8 @@
+import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:blog_notes/Shared/constant.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddGallery extends StatefulWidget {
   const AddGallery({Key? key}) : super(key: key);
@@ -9,6 +12,8 @@ class AddGallery extends StatefulWidget {
 }
 
 class _AddGalleryState extends State<AddGallery> {
+  bool isFile = false;
+  File fileImage = new File('');
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
@@ -49,7 +54,15 @@ class _AddGalleryState extends State<AddGallery> {
                   height: 50,
                   width: 150,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final image = await ImagePicker()
+                          .pickImage(source: ImageSource.gallery);
+                      if (image == null) return;
+                      final imageTemporary = File(image.path);
+                      setState(() {
+                        fileImage = imageTemporary;
+                      });
+                    },
                     child: Text(
                       "Upload Image",
                       style: TextStyle(color: Colors.white),
@@ -64,12 +77,15 @@ class _AddGalleryState extends State<AddGallery> {
                   child: Container(
                       child: Column(
                     children: [
-                      Image(image: AssetImage("assets/empty.png")),
-                      Text(
-                        "No Image Found",
-                        style: TextStyle(
-                            color: Color.fromARGB(170, 158, 158, 158)),
-                      )
+                      if (fileImage != null) Image(image: FileImage(fileImage)),
+                      if (fileImage == null)
+                        Image(image: AssetImage("assets/empty.png"))
+                      // Image(image: AssetImage("assets/empty.png")),
+                      // Text(
+                      //   "No Image Found",
+                      //   style: TextStyle(
+                      //       color: Color.fromARGB(170, 158, 158, 158)),
+                      // )
                     ],
                   )),
                 ),
