@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
               ),
               backgroundColor: Color.fromARGB(255, 226, 211, 40),
               onTap: () {
-                // Navigator.pushNamed(context, '/addTask');
+                Navigator.pushNamed(context, '/gallery');
               },
             ),
           ],
